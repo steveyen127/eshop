@@ -1,0 +1,81 @@
+{% load static %}
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function(){
+    
+    window.addEventListener('scroll', function() {
+         
+      if (window.scrollY > 250) {
+        document.getElementById('navbar_top').classList.add('fixed-top');
+        // add padding top to show content behind navbar
+        navbar_height = document.querySelector('.navbar').offsetHeight;
+        document.body.style.paddingTop = navbar_height + 'px';
+      } else {
+        document.getElementById('navbar_top').classList.remove('fixed-top');
+         // remove padding top from body
+        document.body.style.paddingTop = '0';
+      } 
+    });
+  }); 
+  // DOMContentLoaded  end
+</script>
+
+<style type="text/css">
+  #hello-msg{
+    font-size: 18px;
+    margin-right: 20px;
+    }
+
+  .navbar-custom {
+    background-color: #000000;
+    }
+</style>
+
+<div class="col-md-12 px-0" align="center" style="background-color: #ffffff;">
+  <a href="/"><img src="{% static 'logo/banner1.jpg' %}" height="250px"></a>
+</div>
+
+
+<!-- ============= COMPONENT ============== -->
+<nav id="navbar_top" class="navbar navbar-expand-lg navbar-dark navbar-custom">
+ <div class="container">
+   <a class="navbar-brand" href="{% url 'store' %}">Your eShop</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav"  aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="collapse navbar-collapse" id="main_nav">
+  
+  <ul class="navbar-nav mr-auto">
+      <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+      {% for c in categories %}
+      <li class="nav-item"><a class="nav-link" href="{% url 'by-category' c.id %}">{{c.product_category}}</a></li>     
+      {% endfor %}
+    </ul>
+  </div> <!-- navbar-collapse.// -->
+  {% if request.user.is_authenticated %}
+    <span class="hello-msg" style="margin-right: 20px">
+      
+     <a class="btn" style="color: white;height: 50px;" href="{% url 'user-orders' %}">
+      <i class="bi bi-person-circle"  style="font-size: 1.5em; margin-right: 5px; color: white;"></i>{{request.user}}
+     </a>
+    </span>
+
+    <span>
+      <a href="{% url 'logout' %}" class="btn" style="height: 50px; margin-right: 20px; color: white;"> <i class="bi bi-box-arrow-in-right" style= "font-size:1.5em;margin-right:10px;"></i>Logout</a>
+    </span>
+  {% else %}
+    <a href="{% url 'login' %}" class="btn " style="height: 50px; color: white;">
+      <i class="bi bi-box-arrow-in-right" style= "font-size:1.5em;margin-right:10px;"></i>Login
+    </a>
+  {% endif %}
+
+  <span>
+    <a href="{% url 'cart' %}" class="btn " style=" margin-left: 20px; color: white;">
+      <i class="bi bi-cart" style="font-size: 1.5em; "></i>
+      {{cartItems}}
+    </a>
+    
+  </span>
+ </div> <!-- container-fluid.// -->
+</nav>
+<!-- ============= COMPONENT END// ============== -->
+
