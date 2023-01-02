@@ -58,7 +58,7 @@
 		<form name='my_form' action='.' method='POST'>
 			{% csrf_token %}
 			<div class="dropdown" align="right">
-				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: rgba(255, 245, 224, .5);">
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: whitesmoke;">
 			    	<i class="bi bi-filter" id="order_icon"></i>
 				</button>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -77,9 +77,8 @@
 							<img src="{{ b.picture }}" class="card-img-top" style="width: 100%; height: 200px;">
 						</a>	
 						<div class="card-heading" align="center">
-							<a href="{% url 'products-url' b.id %}"><h3>{{ b.name }}</h3></a>
+							<a href="{% url 'products-url' b.id %}"><h3 style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{ b.name }}</h3></a>
 							<h3>NT ${{ b.price }}</h3>
-							
 						</div>
 						    <button data-product={{b.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart"><i class="bi bi-cart-plus" style="font-size: 1.5em; margin-right: 10px;"></i>Add to Cart</button>
 					</div>
